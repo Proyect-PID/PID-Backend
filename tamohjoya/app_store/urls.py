@@ -1,9 +1,10 @@
 from django.urls import path 
-from app_store.views import CategoryListView, test, JoyasListView, CartListView, AddCartView, DeleteCartView
+from app_store.views import CategoryListView, test, JoyasListView, CartListView, AddCartView, DeleteCartView,registro_usuario
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns=[
     path('test/',test, name="test"),
+    path('registro/', registro_usuario, name='registro_usuario'),
     path('category/',CategoryListView.as_view(), name= "category"),
     path('joyas/<str:name>/',JoyasListView.as_view(), name= "joyas"),
     path('cart/',CartListView.as_view(), name='cart'),

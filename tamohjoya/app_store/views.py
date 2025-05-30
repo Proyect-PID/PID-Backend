@@ -1,13 +1,24 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from app_store.serializers import CategorySerializer, JoyasSerializer, CartItemSerializer, CartSerializer
 from app_store.models import Category, Joyas, Cart, CartItems, Compra, ProductosCompra
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from .forms import RegistroUsuarioForm
 
 def test(request):
     print("hola mundo")
     return HttpResponse("Hola Mundo")
+
+def registro_usuario(request):
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()  
+            return redirect('login') 
+    else:
+        form = RegistroUsuarioForm()
+    return render(request, 'registro.html', {'form': form})
 
 class CategoryListView(ListAPIView):
     queryset=Category.objects.all()
